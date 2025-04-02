@@ -30,7 +30,8 @@
             android:layout_below="@+id/imgProduct"
             android:layout_marginTop="5dp"
             android:text="Product"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/txtProductPrice"
