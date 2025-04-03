@@ -1,14 +1,13 @@
 package com.example.marketplace;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -22,12 +21,27 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull MainModel model) {
         holder.txtProductName.setText(model.getProductName());
-        holder.txtProductPrice.setText("$ " + model.getProductPrice());
+        holder.txtProductPrice.setText("$" + model.getProductPrice());
 
         Glide.with(holder.imgProduct.getContext())
                 .load(model.getProductImg())
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.imgProduct);
+
+        holder.imgProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ProductPreview.class);
+
+                intent.putExtra("imageUrl", model.getProductImg());
+                intent.putExtra("name", model.getProductName());
+                intent.putExtra("price", model.getProductPrice());
+                intent.putExtra("description", model.getProductDesc());
+                intent.putExtra("count", model.getProductCount());
+
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     @NonNull

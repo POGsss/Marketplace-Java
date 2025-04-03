@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_color"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -52,14 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/header"
-        android:background="@drawable/background_rounded"
         android:layout_marginTop="-25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:elevation="5dp"
+        android:background="@drawable/background_rounded"
         android:searchIcon="@drawable/icon_search"
         android:closeIcon="@drawable/icon_close"
-        android:queryHint="Search..."/>
+        android:queryHint="Search..." />
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvOutput"
