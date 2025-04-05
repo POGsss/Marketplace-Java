@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     // Declaration
     FloatingActionButton fabAdd;
     SearchView searchItem;
-    ImageButton btnCart, btnUser;
+    ImageButton btnCart, btnProfile;
     MainAdapter mainAdapter;
     RecyclerView rvMain;
 
@@ -28,23 +28,35 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialization
         fabAdd = findViewById(R.id.fabAdd);
-        searchItem = findViewById(R.id.searchItem);
         btnCart = findViewById(R.id.btnCart);
-        btnUser = findViewById(R.id.btnUser);
+        btnProfile = findViewById(R.id.btnProfile);
+        searchItem = findViewById(R.id.searchItem);
         rvMain = findViewById(R.id.rvMain);
 
-        // Recycler View
-        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productName");
+        // Button Event Listener
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProductCreate.class);
+                startActivity(intent);
+            }
+        });
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserCart.class);
+                startActivity(intent);
+            }
+        });
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(intent);
+            }
+        });
 
-        FirebaseRecyclerOptions<MainModel> options =
-                new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(query, MainModel.class)
-                        .build();
-
-        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
-        mainAdapter = new MainAdapter(options);
-        rvMain.setAdapter(mainAdapter);
-
+        // Search Event Listener
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -63,17 +75,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Event Listener
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ProductCreate.class);
-                startActivity(intent);
-            }
-        });
+        // Recycler View
+        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productName");
+
+        FirebaseRecyclerOptions<MainModel> options =
+                new FirebaseRecyclerOptions.Builder<MainModel>()
+                        .setQuery(query, MainModel.class)
+                        .build();
+
+        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
+        mainAdapter = new MainAdapter(options);
+        rvMain.setAdapter(mainAdapter);
     }
-
-
+    
     // Search Functionality
     private void productSearch(String searchTerm) {
         Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productSearch").startAt(searchTerm).endAt(searchTerm + "~");
