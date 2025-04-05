@@ -3,7 +3,9 @@ package com.example.marketplace;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     SearchView searchItem;
     ImageButton btnCart, btnUser;
     MainAdapter mainAdapter;
-    RecyclerView rvOutput;
+    RecyclerView rvMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         searchItem = findViewById(R.id.searchItem);
         btnCart = findViewById(R.id.btnCart);
         btnUser = findViewById(R.id.btnUser);
-        rvOutput = findViewById(R.id.rvOutput);
+        rvMain = findViewById(R.id.rvMain);
 
         // Recycler View
         Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productName");
@@ -39,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
                         .setQuery(query, MainModel.class)
                         .build();
 
-        rvOutput.setLayoutManager(new GridLayoutManager(this, 2));
+        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
         mainAdapter = new MainAdapter(options);
-        rvOutput.setAdapter(mainAdapter);
+        rvMain.setAdapter(mainAdapter);
 
         searchItem.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -60,8 +62,19 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Event Listener
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ProductCreate.class);
+                startActivity(intent);
+            }
+        });
     }
 
+
+    // Search Functionality
     private void productSearch(String searchTerm) {
         Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productSearch").startAt(searchTerm).endAt(searchTerm + "~");
 
@@ -71,10 +84,11 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
         mainAdapter = new MainAdapter(options);
-        rvOutput.setAdapter(mainAdapter);
+        rvMain.setAdapter(mainAdapter);
         mainAdapter.startListening();
     }
 
+    // Start Listening Adapter
     @Override
     protected void onStart() {
         super.onStart();

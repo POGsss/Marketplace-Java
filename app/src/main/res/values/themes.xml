@@ -2,8 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Marketplace" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary_color</item>
-        <item name="android:editTextColor">@color/primary_color</item>
-        <item name="android:textColorHint">@color/primary_color</item>
     </style>
 
     <style name="Theme.Marketplace" parent="Base.Theme.Marketplace" />

@@ -41,12 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
-        android:padding="20dp"
         android:clipToPadding="false" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="20dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -169,26 +169,122 @@
                         android:layout_marginBottom="5dp"/>
 
                     <TextView
+                        android:id="@+id/txtProducttCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Category: ###"
+                        android:textSize="14sp"
+                        android:textColor="@color/black" />
+
+                    <TextView
                         android:id="@+id/txtProductCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Quantity: ###"
+                        android:text="Stock: ###"
                         android:textSize="14sp"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Total Sold: 10k+"
+                        android:text="Condition: ###"
                         android:textSize="14sp"
                         android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ratings: 5 stars"
+                        android:text="Ships From: ###"
                         android:textSize="14sp"
                         android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Warranty Type: ###"
+                        android:textSize="14sp"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="15dp"
+                app:cardUseCompatPadding="true" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Product Reviews"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginBottom="5dp"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal" >
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/icon_star_full" />
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/icon_star_half" />
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:src="@drawable/icon_star" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:id="@+id/unavailable"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:paddingBottom="20dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/image_unavailable" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/unavailable"
+                            android:layout_marginTop="-25dp"
+                            android:gravity="center"
+                            android:text="Currently Unavailable"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
