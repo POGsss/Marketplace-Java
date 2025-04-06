@@ -108,4 +108,11 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         mainAdapter.startListening();
     }
+
+    // Stop Listening Adapter
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mainAdapter.stopListening();
+    }
 }

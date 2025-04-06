@@ -36,8 +36,12 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
                 intent.putExtra("imageUrl", model.getProductImg());
                 intent.putExtra("name", model.getProductName());
                 intent.putExtra("price", model.getProductPrice());
-                intent.putExtra("description", model.getProductDesc());
-                intent.putExtra("count", model.getProductCount());
+                intent.putExtra("description", model.getProductDescription());
+                intent.putExtra("category", model.getProductCategory());
+                intent.putExtra("count", String.valueOf(model.getProductCount()));
+                intent.putExtra("condition", model.getProductCondition());
+                intent.putExtra("from", model.getProductFrom());
+                intent.putExtra("warranty", model.getProductWarranty());
 
                 view.getContext().startActivity(intent);
             }
