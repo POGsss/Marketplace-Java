@@ -1,11 +1,8 @@
 package com.example.marketplace;
 
 import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -63,7 +60,6 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            // Initialization
             imgProduct = itemView.findViewById(R.id.imgProduct);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);

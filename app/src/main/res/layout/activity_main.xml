@@ -59,7 +59,7 @@
         android:searchIcon="@drawable/icon_search"
         android:closeIcon="@drawable/icon_close"
         android:queryHint="Search..." />
-    
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMain"
         android:layout_width="match_parent"

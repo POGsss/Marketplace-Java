@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.SearchView;
+import android.widget.*;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnCart, btnProfile;
     MainAdapter mainAdapter;
     RecyclerView rvMain;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.btnProfile);
         searchItem = findViewById(R.id.searchItem);
         rvMain = findViewById(R.id.rvMain);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
         // Button Event Listener
         fabAdd.setOnClickListener(new View.OnClickListener() {
