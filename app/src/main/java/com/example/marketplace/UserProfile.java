@@ -1,5 +1,6 @@
 package com.example.marketplace;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,8 +21,8 @@ public class UserProfile extends AppCompatActivity {
     // Declaration
     ImageButton btnBack, btnSignOut;
     TextView txtName, txtEmail;
-    Dialog dialog;
-    Button btnCancel, btnYes;
+    Dialog dLogout, dDelete;
+    Button btnCancelLogout, btnYesLogout, btnCancelDelete, btnYesDelete, btnDelete;
     private FirebaseAuth mAuth;
 
     @Override
@@ -30,19 +33,9 @@ public class UserProfile extends AppCompatActivity {
         // Initialization
         btnBack = findViewById(R.id.btnBack);
         btnSignOut = findViewById(R.id.btnSignOut);
+        btnDelete = findViewById(R.id.btnDelete);
         txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
-
-        // Dialog Box
-        dialog = new Dialog(UserProfile.this);
-
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.dialog_logout);
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        btnCancel = dialog.findViewById(R.id.btnCancel);
-        btnYes = dialog.findViewById(R.id.btnYes);
 
         // Firebase User
         mAuth = FirebaseAuth.getInstance();
@@ -65,25 +58,79 @@ public class UserProfile extends AppCompatActivity {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
+                dLogout.show();
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                dDelete.show();
             }
         });
 
-        btnYes.setOnClickListener(new View.OnClickListener() {
+        // Logout Dialog
+        dLogout = new Dialog(UserProfile.this);
+
+        dLogout.setCancelable(false);
+        dLogout.setContentView(R.layout.dialog_logout);
+        dLogout.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dLogout.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnCancelLogout = dLogout.findViewById(R.id.btnCancel);
+        btnYesLogout = dLogout.findViewById(R.id.btnYes);
+
+        btnCancelLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dLogout.dismiss();
+            }
+        });
+        btnYesLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
+                Toast.makeText(UserProfile.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(UserProfile.this, SignInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Delete Dialog
+        dDelete = new Dialog(UserProfile.this);
+
+        dDelete.setCancelable(false);
+        dDelete.setContentView(R.layout.dialog_delete);
+        dDelete.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dDelete.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        btnCancelDelete = dDelete.findViewById(R.id.btnCancel);
+        btnYesDelete = dDelete.findViewById(R.id.btnYes);
+
+        btnCancelDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dDelete.dismiss();
+            }
+        });
+        btnYesDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(UserProfile.this, "Account Deactivated", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(UserProfile.this, SignInActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
             }
         });
     }

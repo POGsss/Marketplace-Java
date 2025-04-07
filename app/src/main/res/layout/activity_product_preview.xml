@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -81,6 +81,15 @@
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/txtProductDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Product Description"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp" />
 
                     <TextView
                         android:id="@+id/txtProductPrice"
@@ -140,24 +149,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="10dp" >
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Product Description"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:layout_marginBottom="5dp"/>
-
-                    <TextView
-                        android:id="@+id/txtProductDescription"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Product Description"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:layout_marginBottom="20dp" />
 
                     <TextView
                         android:layout_width="match_parent"

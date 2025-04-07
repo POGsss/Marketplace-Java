@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:text="Are you sure you want to logout?"
+            android:text="Are you sure you want to deactivate your account?"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginBottom="20dp"/>

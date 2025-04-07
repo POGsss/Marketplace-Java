@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Marketplace</string>
+
+    <!-- Category Array -->
+    <string-array name="product_category">
+        <item>Electronics</item>
+        <item>Fashion</item>
+        <item>Home &amp; Living</item>
+        <item>Health &amp; Beauty</item>
+        <item>Groceries</item>
+    </string-array>
+
+    <!-- Condition Array -->
+    <string-array name="product_conditions">
+        <item>Brand New</item>
+        <item>Second Hand</item>
+    </string-array>
+
+    <!-- Warranty Array -->
+    <string-array name="product_warranty">
+        <item>Refundable</item>
+        <item>Non-Refundable</item>
+    </string-array>
 </resources>
