@@ -47,7 +47,6 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
-
         txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

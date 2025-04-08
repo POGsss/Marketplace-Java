@@ -3,6 +3,7 @@
 
     <!-- Category Array -->
     <string-array name="product_category">
+        <item>Category</item>
         <item>Electronics</item>
         <item>Fashion</item>
         <item>Home &amp; Living</item>
@@ -11,13 +12,15 @@
     </string-array>
 
     <!-- Condition Array -->
-    <string-array name="product_conditions">
+    <string-array name="product_condition">
+        <item>Condition</item>
         <item>Brand New</item>
         <item>Second Hand</item>
     </string-array>
 
     <!-- Warranty Array -->
     <string-array name="product_warranty">
+        <item>Warranty</item>
         <item>Refundable</item>
         <item>Non-Refundable</item>
     </string-array>
