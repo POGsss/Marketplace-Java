@@ -47,6 +47,12 @@ public class ProductCreate extends AppCompatActivity {
                 finish();
             }
         });
+        btnImgUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
