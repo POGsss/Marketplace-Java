@@ -50,12 +50,13 @@ public class ProductCreate extends AppCompatActivity {
         btnImgUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast.makeText(ProductCreate.this, "Select Photo From Files", Toast.LENGTH_SHORT).show();
             }
         });
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(ProductCreate.this, "Added To Marketplace", Toast.LENGTH_SHORT).show();
 
             }
         });
