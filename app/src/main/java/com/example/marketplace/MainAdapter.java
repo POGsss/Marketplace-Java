@@ -17,14 +17,15 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel, MainAdapter.
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull MainModel model) {
+        // Adding Data To Each Item
         holder.txtProductName.setText(model.getProductName());
         holder.txtProductPrice.setText("$" + model.getProductPrice());
-
         Glide.with(holder.imgProduct.getContext())
                 .load(model.getProductImg())
                 .placeholder(R.drawable.image_placeholder)
                 .into(holder.imgProduct);
 
+        // Event Listener
         holder.imgProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
