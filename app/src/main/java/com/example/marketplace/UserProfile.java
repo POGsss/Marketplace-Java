@@ -2,6 +2,8 @@ package com.example.marketplace;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class UserProfile extends AppCompatActivity {
     // Declaration
@@ -23,6 +28,8 @@ public class UserProfile extends AppCompatActivity {
     TextView txtName, txtEmail;
     Dialog dLogout, dDelete;
     Button btnCancelLogout, btnYesLogout, btnCancelDelete, btnYesDelete, btnDelete;
+    AddedAdapter addedAdapter;
+    RecyclerView rvAddedProduct, rvPurchasedProduct;
     private FirebaseAuth mAuth;
 
     @Override
@@ -36,16 +43,33 @@ public class UserProfile extends AppCompatActivity {
         btnDelete = findViewById(R.id.btnDelete);
         txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
+        rvAddedProduct = findViewById(R.id.rvAddedProduct);
+        rvPurchasedProduct = findViewById(R.id.rvPurchasedProduct);
 
         // Firebase User
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         String name = user.getDisplayName();
         String email = user.getEmail();
+        String currentUid = user.getUid();
 
         // Updating UI
         txtName.setText(name);
         txtEmail.setText(email);
+
+        // Recycler View
+        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("uid").equalTo(currentUid);
+
+        FirebaseRecyclerOptions<AddedModel> options =
+                new FirebaseRecyclerOptions.Builder<AddedModel>()
+                        .setQuery(query, AddedModel.class)
+                        .build();
+
+        addedAdapter = new AddedAdapter(options);
+
+        rvAddedProduct.setItemAnimator(null);
+        rvAddedProduct.setLayoutManager(new GridLayoutManager(this, 3));
+        rvAddedProduct.setAdapter(addedAdapter);
 
         // Event Listener
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -133,5 +157,14 @@ public class UserProfile extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    // Start Listening Adapter
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (addedAdapter != null) {
+            addedAdapter.startListening();
+        }
     }
 }

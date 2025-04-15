@@ -2,6 +2,7 @@ package com.example.marketplace;
 
 public class MainModel {
     // Class Properties
+    String uid;
     String productImg;
     String productName;
     String productPrice;
@@ -13,7 +14,8 @@ public class MainModel {
     String productFrom;
 
     // Constructor With Parameters
-    public MainModel(String productCategory, String productCondition, String productDescription, String productFrom, String productImg, String productName, String productPrice, int productStock, String productWarranty) {
+    public MainModel(String uid, String productCategory, String productCondition, String productDescription, String productFrom, String productImg, String productName, String productPrice, int productStock, String productWarranty) {
+        this.uid = uid;
         this.productCategory = productCategory;
         this.productCondition = productCondition;
         this.productDescription = productDescription;
@@ -31,6 +33,14 @@ public class MainModel {
     }
 
     // Getters & Setters
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public String getProductCategory() {
         return productCategory;
     }

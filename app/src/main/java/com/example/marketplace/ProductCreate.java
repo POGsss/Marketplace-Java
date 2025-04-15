@@ -17,6 +17,8 @@ import android.widget.*;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -78,8 +80,9 @@ public class ProductCreate extends AppCompatActivity {
         btnImgUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.setType("image/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 imagePickerLauncher.launch(intent);
             }
         });
@@ -107,6 +110,7 @@ public class ProductCreate extends AppCompatActivity {
 
     // Save Product To Database
     private void saveProductToDatabase(String imageUrl) {
+        // Check If All Fields Are Filled
         if (
                 imageUrl == null || imageUrl.isEmpty() ||
                 edtName.getText().toString().trim().isEmpty() ||
@@ -122,8 +126,19 @@ public class ProductCreate extends AppCompatActivity {
             return;
         }
 
+        // Get User ID
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+        String uid = user.getUid();
+
+        // Generate Product ID
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("productDatabase").child("productItem");
+        String productId = productRef.push().getKey();
+
+        // Create A Map For Product
         Map<String, Object> map = new HashMap<>();
         map.put("productSearch", edtName.getText().toString().toLowerCase());
+        map.put("uid", uid);
         map.put("productImg", imageUrl);
         map.put("productName", edtName.getText().toString());
         map.put("productPrice", edtPrice.getText().toString());
@@ -134,11 +149,26 @@ public class ProductCreate extends AppCompatActivity {
         map.put("productWarranty", spWarranty.getSelectedItem().toString());
         map.put("productFrom", edtFrom.getText().toString());
 
-        FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").push()
+        // Check If Product ID Is Null
+        if (productId == null) {
+            Toast.makeText(this, "Failed to generate product ID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Upload Product To Database
+        FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem")
+                .child(productId)
                 .setValue(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        // Update User Products
+                        FirebaseDatabase.getInstance().getReference("users")
+                                .child(uid)
+                                .child("userProducts")
+                                .child(productId)
+                                .setValue(true);
+
                         Toast.makeText(ProductCreate.this, "Product uploaded successfully", Toast.LENGTH_SHORT).show();
                         finish();
                     }
