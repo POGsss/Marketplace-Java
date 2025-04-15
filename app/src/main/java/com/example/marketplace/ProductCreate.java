@@ -29,7 +29,7 @@ import java.util.UUID;
 public class ProductCreate extends AppCompatActivity {
     // Declaration
     ImageButton btnBack, btnImgUpload;
-    EditText edtName, edtPrice, edtDescription, edtQuantity, edtFrom;
+    EditText edtName, edtPrice, edtDescription, edtStock, edtFrom;
     Spinner spCategory, spCondition, spWarranty;
     Button btnAddProduct;
     private Uri imageUri;
@@ -45,7 +45,7 @@ public class ProductCreate extends AppCompatActivity {
         edtName = findViewById(R.id.edtName);
         edtPrice = findViewById(R.id.edtPrice);
         edtDescription = findViewById(R.id.edtDescription);
-        edtQuantity = findViewById(R.id.edtQuantity);
+        edtStock = findViewById(R.id.edtStock);
         edtFrom = findViewById(R.id.edtFrom);
         spCategory = findViewById(R.id.spCategory);
         spCondition = findViewById(R.id.spCondition);
@@ -108,31 +108,31 @@ public class ProductCreate extends AppCompatActivity {
     // Save Product To Database
     private void saveProductToDatabase(String imageUrl) {
         if (
+                imageUrl == null || imageUrl.isEmpty() ||
                 edtName.getText().toString().trim().isEmpty() ||
                 edtPrice.getText().toString().trim().isEmpty() ||
                 edtDescription.getText().toString().trim().isEmpty() ||
-                edtQuantity.getText().toString().trim().isEmpty() ||
-                edtFrom.getText().toString().trim().isEmpty() ||
                 spCategory.getSelectedItem().toString().equals("Select Category") ||
+                edtStock.getText().toString().trim().isEmpty() ||
                 spCondition.getSelectedItem().toString().equals("Select Condition") ||
                 spWarranty.getSelectedItem().toString().equals("Select Warranty") ||
-                imageUrl == null || imageUrl.isEmpty()
+                edtFrom.getText().toString().trim().isEmpty()
         ) {
             Toast.makeText(this, "Please fill in all fields and upload an image", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Map<String, Object> map = new HashMap<>();
+        map.put("productSearch", edtName.getText().toString().toLowerCase());
+        map.put("productImg", imageUrl);
         map.put("productName", edtName.getText().toString());
         map.put("productPrice", edtPrice.getText().toString());
         map.put("productDescription", edtDescription.getText().toString());
-        map.put("productQuantity", edtQuantity.getText().toString());
-        map.put("productFrom", edtFrom.getText().toString());
         map.put("productCategory", spCategory.getSelectedItem().toString());
+        map.put("productStock", Integer.parseInt(edtStock.getText().toString()));
         map.put("productCondition", spCondition.getSelectedItem().toString());
         map.put("productWarranty", spWarranty.getSelectedItem().toString());
-        map.put("productImg", imageUrl);
-        map.put("productSearch", edtName.getText().toString().toLowerCase());
+        map.put("productFrom", edtFrom.getText().toString());
 
         FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").push()
                 .setValue(map)
@@ -154,7 +154,7 @@ public class ProductCreate extends AppCompatActivity {
     // Spinner Hint
     private void setupSpinnerWithHint(Spinner spinner, int arrayResId) {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
-                this,
+                ProductCreate.this,
                 R.layout.spinner_selected_item,
                 getResources().getStringArray(arrayResId)
         ) {

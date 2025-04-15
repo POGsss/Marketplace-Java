@@ -12,7 +12,7 @@ public class ProductPreview extends AppCompatActivity {
     ImageButton btnBack;
     Button btnAddToCart, btnBuyNow;
     ImageView imgProduct;
-    TextView txtProductName, txtProductPrice, txtProductDescription, txtProductCount, txtProductCategory, txtProductCondition, txtProductFrom, txtProductWarranty;
+    TextView txtProductName, txtProductPrice, txtProductDescription, txtProductStock, txtProductCategory, txtProductCondition, txtProductFrom, txtProductWarranty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,10 @@ public class ProductPreview extends AppCompatActivity {
         txtProductPrice = findViewById(R.id.txtProductPrice);
         txtProductDescription = findViewById(R.id.txtProductDescription);
         txtProductCategory = findViewById(R.id.txtProductCategory);
-        txtProductCount = findViewById(R.id.txtProductCount);
+        txtProductStock = findViewById(R.id.txtProductStock);
         txtProductCondition = findViewById(R.id.txtProductCondition);
-        txtProductFrom = findViewById(R.id.txtProductFrom);
         txtProductWarranty = findViewById(R.id.txtProductWarranty);
+        txtProductFrom = findViewById(R.id.txtProductFrom);
 
         // Getting Intent Data
         String imageUrl = getIntent().getStringExtra("imageUrl");
@@ -39,25 +39,22 @@ public class ProductPreview extends AppCompatActivity {
         String price = getIntent().getStringExtra("price");
         String description = getIntent().getStringExtra("description");
         String category = getIntent().getStringExtra("category");
-        String count = getIntent().getStringExtra("count");
+        String stock = getIntent().getStringExtra("stock");
         String condition = getIntent().getStringExtra("condition");
-        String from = getIntent().getStringExtra("from");
         String warranty = getIntent().getStringExtra("warranty");
+        String from = getIntent().getStringExtra("from");
 
         // Passing Intent Data To Views
+        Glide.with(this).load(imageUrl).placeholder(R.drawable.image_placeholder).into(imgProduct);
+
         txtProductName.setText(name);
         txtProductPrice.setText("$" + price);
         txtProductDescription.setText(description);
         txtProductCategory.setText("Category: " + category);
-        txtProductCount.setText("Quantity: " + count);
+        txtProductStock.setText("Quantity: " + stock);
         txtProductCondition.setText("Condition: " + condition);
-        txtProductFrom.setText("Ships From: " + from);
         txtProductWarranty.setText("Warranty Type: " + warranty);
-
-        Glide.with(this)
-                .load(imageUrl)
-                .placeholder(R.drawable.image_placeholder)
-                .into(imgProduct);
+        txtProductFrom.setText("Ships From: " + from);
 
         // Event Listener
         btnBack.setOnClickListener(new View.OnClickListener() {

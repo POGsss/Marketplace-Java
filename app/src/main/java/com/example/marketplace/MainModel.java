@@ -2,28 +2,26 @@ package com.example.marketplace;
 
 public class MainModel {
     // Class Properties
-    String productName;
-    String productDescription;
-    String productPrice;
     String productImg;
+    String productName;
+    String productPrice;
+    String productDescription;
     String productCategory;
-    int productCount;
+    int productStock;
     String productCondition;
-    String productFrom;
     String productWarranty;
+    String productFrom;
 
     // Constructor With Parameters
-
-
-    public MainModel(String productName, String productDescription, String productPrice, String productImg, String productCategory, int productCount, String productCondition, String productFrom, String productWarranty) {
-        this.productName = productName;
-        this.productDescription = productDescription;
-        this.productPrice = productPrice;
-        this.productImg = productImg;
+    public MainModel(String productCategory, String productCondition, String productDescription, String productFrom, String productImg, String productName, String productPrice, int productStock, String productWarranty) {
         this.productCategory = productCategory;
-        this.productCount = productCount;
         this.productCondition = productCondition;
+        this.productDescription = productDescription;
         this.productFrom = productFrom;
+        this.productImg = productImg;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.productStock = productStock;
         this.productWarranty = productWarranty;
     }
 
@@ -33,53 +31,12 @@ public class MainModel {
     }
 
     // Getters & Setters
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public String getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public String getProductImg() {
-        return productImg;
-    }
-
-    public void setProductImg(String productImg) {
-        this.productImg = productImg;
-    }
-
     public String getProductCategory() {
         return productCategory;
     }
 
     public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
-    }
-
-    public int getProductCount() {
-        return productCount;
-    }
-
-    public void setProductCount(int productCount) {
-        this.productCount = productCount;
     }
 
     public String getProductCondition() {
@@ -90,12 +47,52 @@ public class MainModel {
         this.productCondition = productCondition;
     }
 
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
     public String getProductFrom() {
         return productFrom;
     }
 
     public void setProductFrom(String productFrom) {
         this.productFrom = productFrom;
+    }
+
+    public String getProductImg() {
+        return productImg;
+    }
+
+    public void setProductImg(String productImg) {
+        this.productImg = productImg;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public int getProductStock() {
+        return productStock;
+    }
+
+    public void setProductStock(int productStock) {
+        this.productStock = productStock;
     }
 
     public String getProductWarranty() {
