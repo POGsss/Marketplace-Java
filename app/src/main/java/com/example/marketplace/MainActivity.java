@@ -87,8 +87,10 @@ public class MainActivity extends AppCompatActivity {
                         .setQuery(query, MainModel.class)
                         .build();
 
-        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
         mainAdapter = new MainAdapter(options);
+
+        rvMain.setItemAnimator(null);
+        rvMain.setLayoutManager(new GridLayoutManager(this, 2));
         rvMain.setAdapter(mainAdapter);
     }
     
@@ -102,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
         mainAdapter = new MainAdapter(options);
+
         rvMain.setAdapter(mainAdapter);
+
         mainAdapter.startListening();
     }
 
@@ -112,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if(mainAdapter != null) {
             mainAdapter.startListening();
+        }
+    }
+
+    // Stop Listening Adapter
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mainAdapter != null) {
+            mainAdapter.stopListening();
         }
     }
 }
