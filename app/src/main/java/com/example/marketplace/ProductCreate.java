@@ -99,7 +99,7 @@ public class ProductCreate extends AppCompatActivity {
                             saveProductToDatabase(imageUrl);
                         });
                     }).addOnFailureListener(e -> {
-                        Toast.makeText(ProductCreate.this, "Image Upload Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProductCreate.this, "Image upload failed", Toast.LENGTH_SHORT).show();
                     });
                 } else {
                     Toast.makeText(ProductCreate.this, "Please select an image", Toast.LENGTH_SHORT).show();
@@ -156,14 +156,14 @@ public class ProductCreate extends AppCompatActivity {
         }
 
         // Upload Product To Database
-        FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem")
+        FirebaseDatabase.getInstance().getReference().child("productDatabase")
                 .child(productId)
                 .setValue(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         // Update User Products
-                        FirebaseDatabase.getInstance().getReference("users")
+                        FirebaseDatabase.getInstance().getReference("userDatabase")
                                 .child(uid)
                                 .child("userProducts")
                                 .child(productId)

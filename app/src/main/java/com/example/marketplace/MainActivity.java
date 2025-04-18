@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Recycler View
-        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productName");
+        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").orderByChild("productName");
 
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     
     // Search Functionality
     private void productSearch(String searchTerm) {
-        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").child("productItem").orderByChild("productSearch").startAt(searchTerm).endAt(searchTerm + "~");
+        Query query = FirebaseDatabase.getInstance().getReference().child("productDatabase").orderByChild("productSearch").startAt(searchTerm).endAt(searchTerm + "~");
 
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
